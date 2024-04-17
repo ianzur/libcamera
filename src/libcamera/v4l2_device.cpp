@@ -18,6 +18,8 @@
 #include <unistd.h>
 #include <vector>
 
+#include <pigpiod_if2.h>
+
 #include <linux/v4l2-mediabus.h>
 
 #include <libcamera/base/event_notifier.h>
@@ -61,6 +63,7 @@ V4L2Device::V4L2Device(const std::string &deviceNode)
 	: deviceNode_(deviceNode), fdEventNotifier_(nullptr),
 	  frameStartEnabled_(false)
 {
+    std::uint8_t piNum = pigpio_start(nullptr, nullptr);
 }
 
 /**
@@ -68,6 +71,7 @@ V4L2Device::V4L2Device(const std::string &deviceNode)
  */
 V4L2Device::~V4L2Device()
 {
+    pigpio_end(0);
 }
 
 /**
@@ -763,7 +767,9 @@ void V4L2Device::eventAvailable()
 		return;
 	}
 
+    gpio_write(0, 21, 1);
 	frameStart.emit(event.u.frame_sync.frame_sequence);
+    gpio_write(0, 21, 0);
 }
 
 static const std::map<uint32_t, ColorSpace> v4l2ToColorSpace = {
