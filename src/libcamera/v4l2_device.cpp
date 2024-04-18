@@ -63,7 +63,7 @@ V4L2Device::V4L2Device(const std::string &deviceNode)
 	: deviceNode_(deviceNode), fdEventNotifier_(nullptr),
 	  frameStartEnabled_(false)
 {
-    std::uint8_t piNum = pigpio_start(nullptr, nullptr);
+    pigpio_start(nullptr, nullptr);
 }
 
 /**
@@ -71,7 +71,7 @@ V4L2Device::V4L2Device(const std::string &deviceNode)
  */
 V4L2Device::~V4L2Device()
 {
-    pigpio_end(0);
+//    pigpio_end(0);
 }
 
 /**
