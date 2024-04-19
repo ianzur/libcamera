@@ -180,7 +180,6 @@ cpp_arguments += common_arguments
 add_project_arguments(c_arguments, language : 'c')
 add_project_arguments(cpp_arguments, language : 'cpp')
 add_project_link_arguments(cpp_arguments, language : 'cpp')
-# add_project_link_arguments('-lpigpiod_if2', language : 'cpp')
 
 libcamera_includes = include_directories('include')
 
