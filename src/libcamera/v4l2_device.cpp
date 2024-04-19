@@ -98,7 +98,7 @@ int V4L2Device::open(unsigned int flags)
 		return ret;
 	}
 
-    piID = pigpio_start(nullptr, nullptr);
+	piID = pigpio_start(nullptr, nullptr);
 
 	setFd(std::move(fd));
 
@@ -147,7 +147,7 @@ void V4L2Device::close()
 	if (!isOpen())
 		return;
 
-    pigpio_stop(piID);
+	pigpio_stop(piID);
 
 	delete fdEventNotifier_;
 
@@ -769,9 +769,9 @@ void V4L2Device::eventAvailable()
 		return;
 	}
 
-    gpio_write(0, 21, 1);
+	gpio_write(0, 21, 1);
 	frameStart.emit(event.u.frame_sync.frame_sequence);
-    gpio_write(0, 21, 0);
+	gpio_write(0, 21, 0);
 }
 
 static const std::map<uint32_t, ColorSpace> v4l2ToColorSpace = {
