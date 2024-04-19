@@ -98,7 +98,6 @@ int V4L2Device::open(unsigned int flags)
 		return ret;
 	}
 
-    // pigpio start
     piID = pigpio_start(nullptr, nullptr);
 
 	setFd(std::move(fd));
@@ -148,7 +147,7 @@ void V4L2Device::close()
 	if (!isOpen())
 		return;
 
-    pigpio_end(piID);
+    pigpio_stop(piID);
 
 	delete fdEventNotifier_;
 
