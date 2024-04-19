@@ -88,6 +88,9 @@ private:
 
 	EventNotifier *fdEventNotifier_;
 	bool frameStartEnabled_;
+    
+    // require for pigpio
+    int piID;
 };
 
 } /* namespace libcamera */

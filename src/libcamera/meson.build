@@ -63,6 +63,7 @@ libcamera_deps = []
 
 libatomic = cc.find_library('atomic', required : false)
 libthreads = dependency('threads')
+libpigpiod_if2 = cc.find_library('pigpiod_if2', required : true)
 
 subdir('base')
 subdir('converter')
@@ -181,6 +182,7 @@ libcamera_deps += [
     liblttng,
     libudev,
     libyaml,
+    libpigpiod_if2,
 ]
 
 # We add '/' to the build_rpath as a 'safe' path to act as a boolean flag.

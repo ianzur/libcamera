@@ -63,7 +63,6 @@ V4L2Device::V4L2Device(const std::string &deviceNode)
 	: deviceNode_(deviceNode), fdEventNotifier_(nullptr),
 	  frameStartEnabled_(false)
 {
-    pigpio_start(nullptr, nullptr);
 }
 
 /**
@@ -71,7 +70,6 @@ V4L2Device::V4L2Device(const std::string &deviceNode)
  */
 V4L2Device::~V4L2Device()
 {
-//    pigpio_end(0);
 }
 
 /**
@@ -99,6 +97,9 @@ int V4L2Device::open(unsigned int flags)
 				 << strerror(-ret);
 		return ret;
 	}
+
+    // pigpio start
+    piID = pigpio_start(nullptr, nullptr);
 
 	setFd(std::move(fd));
 
@@ -146,6 +147,8 @@ void V4L2Device::close()
 {
 	if (!isOpen())
 		return;
+
+    pigpio_end(piID);
 
 	delete fdEventNotifier_;
 
